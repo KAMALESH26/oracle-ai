@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: oracle_postgres
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: oracle_analytics
+      POSTGRES_USER: oracle
+      POSTGRES_PASSWORD: oracle123
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mongodb:
+    image: mongo:8
+
+    container_name: oracle_mongodb
+
+    restart: unless-stopped
+
+    ports:
+      - "27017:27017"
+
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:8
+
+    container_name: oracle_redis
+
+    restart: unless-stopped
+
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
+  mongo_data:
